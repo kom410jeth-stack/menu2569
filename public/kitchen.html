@@ -1,3 +1,23 @@
 <!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>หน้าครัว</title><link rel="stylesheet" href="/style.css"></head><body>
-<header><h1>หน้ารับออเดอร์ครัว</h1><p>ซะป๊ะกุ้งแซ่บ & แซ่บนัวชัวลี่</p></header><main class="no-print"><label>รหัสเข้าครัว</label><input id="pin" type="password" placeholder="กรอกรหัสครัว"><button class="btn" id="login">เข้าสู่หน้าครัว</button><p class="muted">รหัสนี้เป็นการล็อกหน้าจอเบื้องต้น ไม่ใช่ระบบยืนยันตัวตนระดับสูง</p><div id="msg" class="error"></div></main><main id="board" class="hidden"><div class="row no-print"><h2>รายการออเดอร์</h2><button class="btn" id="refresh">รีเฟรช</button><button class="btn secondary" onclick="window.print()">พิมพ์หน้าจอ</button></div><div id="orders"></div></main>
+<header><h1>หน้ารับออเดอร์ครัว</h1><p>ซะป๊ะกุ้งแซ่บ & แซ่บนัวชัวลี่</p></header><main class="no-print"><label>รหัสเข้าครัว</label><input id="pin" type="password" placeholder="กรอกรหัสครัว"><button class="btn" id="login">เข้าสู่หน้าครัว</button><p class="muted">รหัสนี้เป็นการล็อกหน้าจอเบื้องต้น ไม่ใช่ระบบยืนยันตัวตนระดับสูง</p><div id="msg" class="error"></div></main>
+<main id="board" class="hidden">
+
+  <!-- ปุ่มเปิดเสียงแจ้งเตือน -->
+  <div class="no-print" style="margin:12px 0">
+    <button class="btn" id="enableSound">
+      🔔 เปิดเสียงแจ้งเตือน
+    </button>
+    <span id="soundStatus">ยังไม่ได้เปิดเสียง</span>
+  </div>
+
+  <div class="row no-print">
+    <h2>รายการออเดอร์</h2>
+    <button class="btn" id="refresh">รีเฟรช</button>
+    <button class="btn secondary" onclick="window.print()">พิมพ์หน้าจอ</button>
+  </div>
+
+  <div id="orders"></div>
+</main>
+    
+<h2>รายการออเดอร์</h2><button class="btn" id="refresh">รีเฟรช</button><button class="btn secondary" onclick="window.print()">พิมพ์หน้าจอ</button></div><div id="orders"></div></main>
 <script src="/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/kitchen.js"></script></body></html>
