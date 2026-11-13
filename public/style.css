@@ -1,0 +1,29 @@
+:root {
+  /* ปรับขนาดรูปเมนูตรงนี้ */
+  --menu-image-height: 170px;
+
+  /* ปรับขนาดมุมโค้ง */
+  --menu-image-radius: 12px;
+
+  /* ปรับตำแหน่งรูป */
+  --menu-image-position: center;
+}
+
+.menu-image {
+  width: 100%;
+  height: var(--menu-image-height);
+  object-fit: cover;
+  object-position: var(--menu-image-position);
+  border-radius: var(--menu-image-radius);
+  display: block;
+  margin-bottom: 10px;
+}
+
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#fffaf3;color:#28231f}
+header{background:#8b1e16;color:white;padding:18px 16px;text-align:center}header h1{font-size:22px;margin:0 0 5px}header p{margin:0;font-size:14px}
+main{max-width:850px;margin:auto;padding:16px}.notice{background:#fff0d8;padding:12px;border-radius:12px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.item,.order{background:white;border:1px solid #eadfd2;border-radius:14px;padding:13px}
+.item h3{margin:0 0 8px;font-size:17px}.price{font-weight:700;color:#a12a1e}.controls{display:flex;align-items:center;gap:8px;margin-top:10px}.controls button,.btn{border:0;border-radius:9px;padding:10px 13px;background:#8b1e16;color:white;font-weight:700;cursor:pointer}.controls button.secondary,.secondary{background:#eee5dc;color:#332b25}.controls input{width:58px;padding:8px;text-align:center;border:1px solid #ddd;border-radius:8px}
+.cart{position:sticky;bottom:0;background:#fff;border:1px solid #e5d8ca;border-radius:14px;padding:14px;margin-top:16px;box-shadow:0 3px 16px #0001}.row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:7px 0}.muted{color:#766e66;font-size:13px}input,textarea,select{font:inherit;padding:10px;border:1px solid #d8cec3;border-radius:8px;width:100%;margin:5px 0 10px}label{font-weight:600;font-size:14px}
+.order{margin:12px 0}.status{font-weight:700;color:#8b1e16}.hidden{display:none}.error{color:#a00;white-space:pre-wrap}.success{color:#176b35}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+@media print{header,.no-print,.actions{display:none!important}body{background:white}.order{break-inside:avoid;border:1px solid #aaa}}

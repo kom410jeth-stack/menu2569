@@ -1,0 +1,13 @@
+[build]
+  publish = "public"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/kitchen"
+  to = "/kitchen.html"
+  status = 200
+
+[[redirects]]
+  from = "/menu"
+  to = "/index.html"
+  status = 200

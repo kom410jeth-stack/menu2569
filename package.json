@@ -1,0 +1,12 @@
+{
+  "name": "sapa-kungzap-qr-order",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo Static site ready"
+  },
+  "devDependencies": {
+    "netlify-cli": "^23.0.0"
+  }
+}
