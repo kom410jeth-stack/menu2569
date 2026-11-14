@@ -1,8 +1,16 @@
-/ บรรทัดบนสุด: เพิ่มการดึง shopId จาก URL (เช่น เข้าทาง /shop01/kitchen จะได้ "shop01")
+// ดึงพาร์ท URL มาแยกส่วน
 const pathSegments = window.location.pathname.split('/').filter(Boolean);
-const shopId = pathSegments.length > 0 ? pathSegments[0] : null;
+const shopId = (pathSegments.length > 0 && pathSegments[0] !== 'kitchen' && !pathSegments[0].includes('.html')) 
+  ? pathSegments[0] 
+  : null;
+
 const cfg = window.APP_CONFIG;
 const $ = id => document.getElementById(id);
+
+// ดักจับ Error ไว้ป้องกันเว็บค้าง กรณีลืมใส่ id="brand" หรือยังไม่ตั้งค่า SHOPS
+if ($("brand") && cfg.SHOPS) {
+    $("brand").textContent = cfg.SHOPS[shopId] || "ไม่พบข้อมูลร้าน";
+}
 
 let db = null;
 let channel = null;
