@@ -1,3 +1,6 @@
+/ บรรทัดบนสุด: เพิ่มการดึง shopId จาก URL (เช่น เข้าทาง /shop01/kitchen จะได้ "shop01")
+const pathSegments = window.location.pathname.split('/').filter(Boolean);
+const shopId = pathSegments.length > 0 ? pathSegments[0] : null;
 const cfg = window.APP_CONFIG;
 const $ = id => document.getElementById(id);
 
@@ -76,57 +79,58 @@ function connect() {
   );
 }
 
-// ===== เข้าสู่หน้าครัว =====
-$("login").onclick = async () => {
-  try {
-    if ($("pin").value !== cfg.KITCHEN_PIN) {
-      throw Error("รหัสไม่ถูกต้อง");
-    }
+// ===== เข้าสู่หน้าครัว =====  
+$("login").onclick = async () => {  
+ try {  
+ // เพิ่มการเช็คว่ามี shopId ไหม
+ if (!shopId) {
+     throw Error("ไม่พบรหัสร้านใน URL กรุณาเข้าผ่านลิงก์ร้านตัวเอง เช่น /shop01/kitchen");
+ }
+ if ($("pin").value !== cfg.KITCHEN_PIN) {  
+     throw Error("รหัสไม่ถูกต้อง");  
+ }  
+  
+ connect();  
+ $("board").classList.remove("hidden");  
+ $("msg").textContent = "";  
+ await load();  
+  
+ // ปรับแก้ Channel ให้กรองรับเฉพาะออเดอร์ร้านตัวเอง (shopId)
+ channel = db.channel(`kitchen-orders-${shopId}`)  
+ .on(  
+ "postgres_changes",  
+ {  
+ event: "INSERT",  
+ schema: "public",  
+ table: "orders",
+ filter: `shop_id=eq.${shopId}` // <--- จุดที่เพิ่ม: กรองเอาเฉพาะที่ตรงกับร้านนี้
+ },  
+ payload => {  
+ console.log("ออเดอร์ใหม่:", payload.new);  
+ playNewOrderAlert();  
+ load();  
+ }  
+ )  
+ .subscribe();  
+  
+ } catch (e) {  
+ $("msg").textContent = e.message;  
+ }  
+};  
 
-    connect();
+$("refresh").onclick = load;  
 
-    $("board").classList.remove("hidden");
-    $("msg").textContent = "";
-
-    await load();
-
-    // รับเฉพาะออเดอร์ใหม่ INSERT
-    channel = db.channel("kitchen-orders")
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "orders"
-        },
-        payload => {
-          console.log("ออเดอร์ใหม่:", payload.new);
-
-          // ส่งเสียงเตือน
-          playNewOrderAlert();
-
-          // โหลดออเดอร์ใหม่
-          load();
-        }
-      )
-      .subscribe();
-
-  } catch (e) {
-    $("msg").textContent = e.message;
-  }
-};
-
-$("refresh").onclick = load;
 
 // ===== โหลดรายการออเดอร์ =====
-async function load() {
-  if (!db) return;
-
-  const { data, error } = await db
-    .from("orders")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(100);
+async function load() {  
+ if (!db || !shopId) return;  
+  
+ const { data, error } = await db  
+ .from("orders")  
+ .select("*")  
+ .eq("shop_id", shopId) // <--- จุดที่เพิ่ม: ฟิลเตอร์ดึงออเดอร์เฉพาะร้านตัวเอง
+ .order("created_at", { ascending: false })  
+ .limit(100);  
 
   if (error) {
     $("orders").textContent = error.message;
