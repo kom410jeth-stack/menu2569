@@ -6,5 +6,10 @@ window.APP_CONFIG = {
   SUPABASE_URL: "https://icsvbgedqxkfmudplxdk.supabase.co", 
   SUPABASE_ANON_KEY: "sb_publishable_68Y8UnxmgomI60q3eoVnsw_sTPwpnWH",
   RESTAURANT_NAME: "ซะป๊ะกุ้งแซ่บ & แซ่บนัวชัวลี่",
-  KITCHEN_PIN: "199199"
+  KITCHEN_PIN: "199199",
+   // ต้องมีชุดข้อมูลตรงนี้ โค้ดถึงจะแปลง shop01 เป็นชื่อร้านได้ครับ
+ SHOPS: {
+   "shop01": "ซะป๊ะกุ้งแซ่บ",
+   "shop02": "แซ่บนัว"
+ }
 }
