@@ -1,16 +1,40 @@
 const cfg=window.APP_CONFIG, menu=window.MENU_ITEMS.filter(x=>x.active);  
-
-// 1. ดึง shopId จาก URL เช่น เข้า /shop01/ จะได้ shopId = "shop01"
+// 1. ดึง shopId จาก URL
 const pathSegments = window.location.pathname.split('/').filter(Boolean);
 const shopId = pathSegments.length > 0 ? pathSegments[0] : null;
 
-const params=new URLSearchParams(location.search); const table=Number(params.get("table"));  
-const cart={}; const $=id=>document.getElementById(id);  
-$("brand").textContent=cfg.RESTAURANT_NAME;  
+// 2. ดึงเฉพาะเมนูของร้านนั้นๆ (ถ้าหาร้านไม่เจอ ให้เมนูว่างเปล่า)
+const shopMenuData = window.MENU_ITEMS[shopId] || [];
+const menu = shopMenuData.filter(x => x.active);
+
+const params = new URLSearchParams(location.search); 
+const table = Number(params.get("table"));
+const cart = {}; 
+const $ = id => document.getElementById(id);
+
+// 3. ดึงชื่อร้านอย่างปลอดภัย
+const shopName = (cfg.SHOPS && cfg.SHOPS[shopId]) ? cfg.SHOPS[shopId] : (shopId || "ไม่พบข้อมูลร้าน");
+
+if ($("brand")) {
+    $("brand").textContent = shopName;
+}
+
+$("tableLabel").textContent = shopId && Number.isInteger(table) && table>=1 && table<=5 
+    ? `ร้าน ${shopName} โต๊ะ ${table}` 
+    : "URL ไม่ถูกต้อง กรุณาสแกน QR ประจำโต๊ะใหม่";
+
+
+// 1. ดึง shopId จาก URL เช่น เข้า /shop01/ จะได้ shopId = "shop01"
+//const pathSegments = window.location.pathname.split('/').filter(Boolean);
+//const shopId = pathSegments.length > 0 ? pathSegments[0] : null;
+
+//const params=new URLSearchParams(location.search); const table=Number(params.get("table"));  
+//const cart={}; const $=id=>document.getElementById(id);  
+//$("brand").textContent=cfg.RESTAURANT_NAME;  
 
 // 2. เช็คว่ามี shopId และ table ครบถ้วนหรือไม่
 // ใช้ cfg.SHOPS[shopId] เพื่อดึงชื่อร้านจาก config.js แทนการแสดงรหัส shopId ตรงๆ
-$("tableLabel").textContent= shopId && Number.isInteger(table)&&table>=1&&table<=5 ? `ร้าน ${cfg.SHOPS[shopId] || shopId} โต๊ะ ${table}` : "URL ไม่ถูกต้อง กรุณาสแกน QR ประจำโต๊ะใหม่";
+//$("tableLabel").textContent= shopId && Number.isInteger(table)&&table>=1&&table<=5 ? `ร้าน ${cfg.SHOPS[shopId] || shopId} โต๊ะ ${table}` : "URL ไม่ถูกต้อง กรุณาสแกน QR ประจำโต๊ะใหม่";
 
 function client(){if(!cfg.SUPABASE_URL.startsWith("https://")||cfg.SUPABASE_ANON_KEY.includes("ใส่_"))throw Error("ยังไม่ได้ตั้งค่า Supabase ในไฟล์ public/config.js");return window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY)}  
 function render(){  
