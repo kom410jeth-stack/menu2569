@@ -9,7 +9,8 @@ const cart={}; const $=id=>document.getElementById(id);
 $("brand").textContent=cfg.RESTAURANT_NAME;  
 
 // 2. เช็คว่ามี shopId และ table ครบถ้วนหรือไม่
-$("tableLabel").textContent= shopId && Number.isInteger(table)&&table>=1&&table<=5 ? `ร้าน ${shopId} โต๊ะ ${table}` : "URL ไม่ถูกต้อง กรุณาสแกน QR ประจำโต๊ะใหม่";  
+// ใช้ cfg.SHOPS[shopId] เพื่อดึงชื่อร้านจาก config.js แทนการแสดงรหัส shopId ตรงๆ
+$("tableLabel").textContent= shopId && Number.isInteger(table)&&table>=1&&table<=5 ? `ร้าน ${cfg.SHOPS[shopId] || shopId} โต๊ะ ${table}` : "URL ไม่ถูกต้อง กรุณาสแกน QR ประจำโต๊ะใหม่";
 
 function client(){if(!cfg.SUPABASE_URL.startsWith("https://")||cfg.SUPABASE_ANON_KEY.includes("ใส่_"))throw Error("ยังไม่ได้ตั้งค่า Supabase ในไฟล์ public/config.js");return window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY)}  
 function render(){  
