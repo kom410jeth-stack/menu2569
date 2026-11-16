@@ -1,6 +1,7 @@
 // แก้ชื่อเมนู ราคา และรูปภาพได้ในไฟล์นี้
 // image ใช้ URL รูปภาพ หรือเว้นเป็น "" ได้
-window.MENU_ITEMS = [
+window.MENU_ITEMS = {
+   "shop01": [
   {id:"M01", name:"ข้าวผัดชะอมกุ้ง", price:79, image:"/image/ข้าวผัดชะอมกุ้ง.jpg", active:true},
   {id:"M02", name:"ข้าวผัดเนยทะเลรวม", price:79, image:"/image/ข้าวผัดเนยทะเลรวม.jpg", active:true},
   {id:"M03", name:"ข้าวผัดเนยกุ้งใส่ไข่", price:79, image:"/image/ข้าวผัดเนยกุ้งใส่ไข่.jpg", active:true},
@@ -15,4 +16,11 @@ window.MENU_ITEMS = [
   {id:"M12", name:"กุ้งลวกจิ้ม", price:109, image:"/image/กุ้งลวกจิ้ม.jpg", active:true},
   {id:"M13", name:"เมี่ยงกุ้ง", price:109, image:"/image/เมี่ยงกุ้ง.jpg", active:true},
   {id:"M14", name:"สันคอมะนาว", price:99, image:"/image/สันคอมะนาว.jpg", active:true}
-];
+],
+  
+  "shop02": [
+  {id:"M01", name:"เชลล์เหลือง", price:999, image:"/image/เชลล์เหลือง.jpg", active:true},
+  {id:"M02", name:"เชลล์เแดง", price:899, image:"/image/เชลล์เแดง.jpg", active:true},
+  {id:"M03", name:"จารบี", price:109, image:"/image/จารบี.jpg", active:true}
+  ]
+};   
