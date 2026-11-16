@@ -12,6 +12,6 @@ window.APP_CONFIG = {
    "shop01": "ซะป๊ะกุ้งแซ่บ",
    "shop02": "แซ่บนัว",
    "shop03": "แซ่บsomuch",
-   "shop04": "CHI'll"
+   "shop04": "CHI'll",
  }
 }
